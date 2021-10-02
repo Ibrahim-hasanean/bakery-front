@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Header from "../component/Orders/Header";
 import { Grid, makeStyles } from "@material-ui/core";
 import { API_COMMON_STATUS } from "../helpers/api-helpers";
@@ -14,28 +14,30 @@ const useStyle = makeStyles(() => ({
 const Orders = () => {
   const [orders, setOrders] = useState([]);
   const [summary, setSummary] = useState({});
-  const [page, setPage] = useState(1);
+  // const [page, setPage] = useState(1);
   const [pages, setPages] = useState(1);
   const history = useHistory();
   const classes = useStyle();
 
-  const getOrders = async (url = "/admins/orders") => {
-    let response = await get(url);
-    console.log(response);
-    if (response.responseStatus === API_COMMON_STATUS.SUCCESS) {
-      setSummary(response.data.summary);
-      setOrders(response.data.orders.orders);
-      let pagesNumber = Math.ceil(response.data.orders.ordersCount / 5);
-      setPages(pagesNumber);
-    } else if (response.responseStatus === API_COMMON_STATUS.UNAUTHORIZED) {
-      localStorage.removeItem("token");
-      localStorage.removeItem("isAuthenticated");
-      history.push("/login");
-    }
-  };
+  const getOrders = useCallback(
+    async (url = "/admins/orders") => {
+      let response = await get(url);
+      if (response.responseStatus === API_COMMON_STATUS.SUCCESS) {
+        setSummary(response.data.summary);
+        setOrders(response.data.orders.orders);
+        let pagesNumber = Math.ceil(response.data.orders.ordersCount / 5);
+        setPages(pagesNumber);
+      } else if (response.responseStatus === API_COMMON_STATUS.UNAUTHORIZED) {
+        localStorage.removeItem("token");
+        localStorage.removeItem("isAuthenticated");
+        history.push("/login");
+      }
+    },
+    [history]
+  );
   useEffect(() => {
     getOrders();
-  }, [history]);
+  }, [history, getOrders]);
   return (
     <Grid container justifyContent="center" className={classes.root}>
       <Header data={summary} />

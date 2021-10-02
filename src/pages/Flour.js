@@ -8,7 +8,6 @@ const Flour = () => {
   const { admin } = useAuthContext();
   const history = useHistory();
   useEffect(() => {
-    console.log("useeffect");
     if (admin) {
       if (!admin?.canManageFlour && !admin?.isBigManager) {
         history.push("/");

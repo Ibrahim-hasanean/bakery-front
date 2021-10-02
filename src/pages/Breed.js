@@ -8,7 +8,6 @@ const Breed = () => {
   const { admin } = useAuthContext();
   const history = useHistory();
   useEffect(() => {
-    console.log("useeffect");
     if (admin) {
       if (!admin.canManageBreed && !admin.isBigManager) {
         history.push("/");

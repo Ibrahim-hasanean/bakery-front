@@ -21,7 +21,6 @@ export const Home = () => {
 
   const getUsers = async (url = "/admins/users?") => {
     let response = await get(url);
-    console.log(response);
     if (response.responseStatus === API_COMMON_STATUS.SUCCESS) {
       setUsers(response.data.users);
     } else if (response.responseStatus === API_COMMON_STATUS.UNAUTHORIZED) {
@@ -33,7 +32,6 @@ export const Home = () => {
   useEffect(() => {
     const getData = async () => {
       let response = await get("/admins/orders/home");
-      console.log(response);
       if (response.responseStatus === API_COMMON_STATUS.SUCCESS) {
         setSummary(response.data.summary);
         setUsers(response.data.users.users);

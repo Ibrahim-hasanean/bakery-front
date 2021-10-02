@@ -13,6 +13,7 @@ import { login } from "../api/auth";
 import { API_COMMON_STATUS } from "../helpers/api-helpers";
 import { useAuthContext } from "../context/authContext";
 import { useHistory } from "react-router-dom";
+import { Alert } from "@material-ui/lab";
 const useStyle = makeStyles(() => ({
   loginContainer: {
     flex: 1,
@@ -62,7 +63,6 @@ const Login = () => {
         password: values.password,
       };
       let response = await login(data);
-      console.log(response);
       if (response.responseStatus === API_COMMON_STATUS.SUCCESS) {
         let { admin, token } = response.data;
         localStorage.setItem("token", token);
@@ -96,6 +96,11 @@ const Login = () => {
           alignItems="center"
           direction="column"
         >
+          {error && (
+            <Alert variant="filled" severity="error">
+              {error}
+            </Alert>
+          )}
           <TextField
             className={classes.inputs}
             variant="outlined"

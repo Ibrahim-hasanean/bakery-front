@@ -9,7 +9,6 @@ const Paid = () => {
   const history = useHistory();
   useEffect(() => {
     if (admin) {
-      console.log("useeffect");
       if (!admin?.canManagePaid && !admin?.isBigManager) {
         history.push("/");
       }

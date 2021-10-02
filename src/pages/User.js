@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { Grid, makeStyles } from "@material-ui/core";
 import { useParams, useHistory } from "react-router-dom";
 import { get } from "../api/genericApi";
@@ -25,26 +25,29 @@ const User = () => {
   const history = useHistory();
   const classes = useStyle();
 
-  const getUserData = async (url = `/admins/users/${id}`) => {
-    console.log(id);
-    setLoading(true);
-    let response = await get(url);
-    console.log(response);
-    setLoading(false);
-    if (response.responseStatus === API_COMMON_STATUS.SUCCESS) {
-      setUser(response.data.user);
-      setUserOrders(response.data.user.orders);
-      setSummaryData(response.data.summary);
-      setPages(response.data.pages);
-    } else if (response.responseStatus === API_COMMON_STATUS.UNAUTHORIZED) {
-      localStorage.removeItem("token");
-      localStorage.removeItem("isAuthenticated");
-      history.push("/login");
-    }
-  };
+  const getUserData = useCallback(
+    async (url = `/admins/users/${id}`) => {
+      console.log(id);
+      setLoading(true);
+      let response = await get(url);
+      console.log(response);
+      setLoading(false);
+      if (response.responseStatus === API_COMMON_STATUS.SUCCESS) {
+        setUser(response.data.user);
+        setUserOrders(response.data.user.orders);
+        setSummaryData(response.data.summary);
+        setPages(response.data.pages);
+      } else if (response.responseStatus === API_COMMON_STATUS.UNAUTHORIZED) {
+        localStorage.removeItem("token");
+        localStorage.removeItem("isAuthenticated");
+        history.push("/login");
+      }
+    },
+    [history, id]
+  );
   useEffect(() => {
     getUserData();
-  }, [id, history]);
+  }, [id, history, getUserData]);
   return (
     <Grid className={classes.root} container justifyContent="center">
       <Header loading={loading} data={summaryData} user={user} />

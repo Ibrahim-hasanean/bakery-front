@@ -25,6 +25,9 @@ const useStyle = makeStyles(() => ({
     padding: "10px",
     borderRadius: "5px",
   },
+  button: {
+    width: "100%",
+  },
 }));
 
 const NavBar = () => {
@@ -162,7 +165,11 @@ const NavBar = () => {
               </Typography>
             </MenuItem>
             <MenuItem>
-              <Button onClick={logout} color="secondary">
+              <Button
+                className={classes.button}
+                onClick={logout}
+                color="secondary"
+              >
                 تسجيل الخروج
               </Button>
             </MenuItem>

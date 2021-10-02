@@ -62,9 +62,9 @@ const UserSearch = ({ setUserData, handleClose, formic }) => {
     if (data.phoneNumber) getUrl = getUrl + `&phoneNumber=${data.phoneNumber}`;
     setUrl(getUrl);
     let response = await get(getUrl);
-    console.log(response);
     if (response.responseStatus === API_COMMON_STATUS.SUCCESS) {
       setUsers(response.data.users);
+      setPages(response.data.pages);
     } else if (response.responseStatus === API_COMMON_STATUS.UNAUTHORIZED) {
       localStorage.removeItem("token");
       localStorage.removeItem("isAuthenticated");

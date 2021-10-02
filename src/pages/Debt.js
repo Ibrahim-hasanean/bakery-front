@@ -8,7 +8,6 @@ const Debt = () => {
   const history = useHistory();
 
   useEffect(() => {
-    console.log("useeffect");
     if (admin) {
       if (!admin?.canManageDebts && !admin?.isBigManager) {
         history.push("/");

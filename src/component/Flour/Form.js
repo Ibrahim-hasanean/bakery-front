@@ -229,7 +229,7 @@ const Form = () => {
             // type="date"
             allowKeyboardControl={true}
             renderInput={(params) => <TextField {...params} />}
-            format="dd-MM-yyyy"
+            format="d-M-yyyy"
             variant="inline"
             onChange={handleChangeDate}
           />

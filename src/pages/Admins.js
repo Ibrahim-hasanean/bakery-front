@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useAuthContext } from "../context/authContext";
 import { Grid, makeStyles } from "@material-ui/core";
 import { API_COMMON_STATUS } from "../helpers/api-helpers";
@@ -19,27 +19,28 @@ const Admins = () => {
   const classes = useStyle();
   const { admin } = useAuthContext();
 
-  const getAdmins = async (url = "/admins?") => {
-    let response = await get(url);
-    console.log(response);
-    if (response.responseStatus === API_COMMON_STATUS.SUCCESS) {
-      setAdmins(response.data.admins);
-    } else if (response.responseStatus === API_COMMON_STATUS.UNAUTHORIZED) {
-      localStorage.removeItem("token");
-      localStorage.removeItem("isAuthenticated");
-      history.push("/login");
-    }
-  };
+  const getAdmins = useCallback(
+    async (url = "/admins?") => {
+      let response = await get(url);
+      if (response.responseStatus === API_COMMON_STATUS.SUCCESS) {
+        setAdmins(response.data.admins);
+      } else if (response.responseStatus === API_COMMON_STATUS.UNAUTHORIZED) {
+        localStorage.removeItem("token");
+        localStorage.removeItem("isAuthenticated");
+        history.push("/login");
+      }
+    },
+    [history]
+  );
   useEffect(() => {
     if (admin) {
-      console.log("useeffect");
       if (!admin?.isBigManager) {
         history.push("/");
       } else {
         getAdmins();
       }
     }
-  }, [admin?.isBigManager, history, admin]);
+  }, [admin?.isBigManager, history, admin, getAdmins]);
 
   return (
     <Grid container justifyContent="center" className={classes.root}>

@@ -4,7 +4,7 @@ import PopUp from "../helpers/PopUp";
 import AddAdmin from "./AddAdmin";
 
 const Header = ({ admins, setAdmins }) => {
-  const [openAdd, setOpenAdd] = useState();
+  const [openAdd, setOpenAdd] = useState(false);
 
   const handleOpenAdd = () => {
     setOpenAdd(true);
@@ -15,7 +15,7 @@ const Header = ({ admins, setAdmins }) => {
   };
 
   return (
-    <Grid xs={11} container justifyContent="space-between">
+    <Grid item xs={11} container justifyContent="space-between">
       <Typography color="textPrimary" variant="h4">
         ادارة المسؤولين
       </Typography>

@@ -1,6 +1,5 @@
 import { useContext, createContext, useState, useEffect } from "react";
 import { API_COMMON_STATUS } from "../helpers/api-helpers";
-import { withRouter } from "react-router-dom";
 import { get } from "../api/genericApi";
 
 const authContext = createContext();
@@ -17,7 +16,6 @@ export const AuthContextProvider = ({ children }) => {
   useEffect(() => {
     const getData = async () => {
       let response = await get("/admins/refresh");
-      console.log("refresh admin");
       if (response.responseStatus === API_COMMON_STATUS.SUCCESS) {
         setAdmin(response.data.admin);
         localStorage.setItem("token", response.data.token);

@@ -53,7 +53,7 @@ const Form = () => {
   const history = useHistory();
   // const [userCount, setUserCount] = useState("");
   // const [user, setUser] = useState();
-  const [openConfirm, setOpenConfirm] = useState();
+  const [openConfirm, setOpenConfirm] = useState(false);
   const [error, setError] = useState();
   const [success, setSuccess] = useState();
   const {
@@ -254,7 +254,7 @@ const Form = () => {
             // type="date"
             allowKeyboardControl={true}
             renderInput={(params) => <TextField {...params} />}
-            format="dd-MM-yyyy"
+            format="d-M-yyyy"
             variant="inline"
             onChange={handleChangeDate}
           />
