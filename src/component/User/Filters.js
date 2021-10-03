@@ -6,6 +6,7 @@ import {
   FormControl,
   Button,
 } from "@material-ui/core";
+import { KeyboardDatePicker } from "@material-ui/pickers";
 
 const useStyle = makeStyles(() => ({
   root: {
@@ -29,9 +30,9 @@ const useStyle = makeStyles(() => ({
   },
 }));
 
-const Filters = ({ getData, user, setUrl, url }) => {
+const Filters = ({ page, getData, user, setUrl, url, setPage }) => {
   const classes = useStyle();
-  const [data, setData] = useState({ from: "", to: "", orderCount: "" });
+  const [data, setData] = useState({ from: null, to: null, orderCount: "" });
 
   const handleChange = (e) => {
     let name = e.target.name;
@@ -41,9 +42,10 @@ const Filters = ({ getData, user, setUrl, url }) => {
   };
 
   const reset = async (e) => {
-    setData({ from: "", to: "", orderCount: "" });
+    setData({ from: null, to: null, orderCount: "" });
     setUrl(`/admins/users/${user._id}?`);
-    await getData();
+    await getData(`/admins/users/${user._id}?page=${page}`);
+    setPage(1);
   };
 
   const search = async (e) => {
@@ -53,6 +55,7 @@ const Filters = ({ getData, user, setUrl, url }) => {
     if (data.orderCount)
       filterUrl = filterUrl + `&orderCount=${data.orderCount}`;
     setUrl(filterUrl);
+    filterUrl = filterUrl + `&page${page}`;
     await getData(filterUrl);
   };
 
@@ -84,26 +87,32 @@ const Filters = ({ getData, user, setUrl, url }) => {
         </FormControl>
 
         <FormControl className={classes.formControl}>
-          <label className={classes.label} htmlFor="from">
-            من تاريخ
-          </label>
-          <TextField
-            value={data.from}
-            onChange={handleChange}
-            id="from"
-            type="date"
+          <KeyboardDatePicker
+            onChange={(date) => {
+              setData({ ...data, from: date });
+            }}
+            label="من تاريخ"
+            allowKeyboardControl={true}
+            renderInput={(params) => <TextField {...params} />}
+            format="dd-MM-yyyy"
+            variant="inline"
             name="from"
+            value={data.from}
+            invalidDateMessage="التاريخ المدخل غير صحيح"
           />
         </FormControl>
         <FormControl className={classes.formControl}>
-          <label className={classes.label} htmlFor="to">
-            الى تاريخ
-          </label>
-          <TextField
+          <KeyboardDatePicker
+            onChange={(date) => {
+              setData({ ...data, to: date });
+            }}
+            label="الى تاريخ"
+            allowKeyboardControl={true}
+            renderInput={(params) => <TextField {...params} />}
+            format="dd-MM-yyyy"
+            variant="inline"
             value={data.to}
-            onChange={handleChange}
-            id="to"
-            type="date"
+            invalidDateMessage="التاريخ المدخل غير صحيح"
             name="to"
           />
         </FormControl>

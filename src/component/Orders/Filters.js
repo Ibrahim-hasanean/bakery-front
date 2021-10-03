@@ -7,9 +7,6 @@ import {
   Button,
 } from "@material-ui/core";
 import { KeyboardDatePicker } from "@material-ui/pickers";
-import { useFormik } from "formik";
-import * as yup from "yup";
-
 const useStyle = makeStyles((theme) => ({
   root: {
     padding: "20px 0px",
@@ -37,36 +34,13 @@ const useStyle = makeStyles((theme) => ({
   },
 }));
 
-const Filters = ({ getData }) => {
+const Filters = ({ getData, page, url, setUrl }) => {
   const classes = useStyle();
   const [data, setData] = useState({
-    from: "",
-    to: "",
+    from: null,
+    to: null,
     orderCount: "",
   });
-
-  // const initialValues = {
-  //   from: "",
-  //   to: "",
-  //   orderCount: "",
-  // };
-  // const schema = yup.object().shape({
-  //   from: yup.date(),
-  //   to: yup.date(),
-  //   orderCount: yup.number(),
-  // });
-
-  // const formic = useFormik({
-  //   initialValues,
-  //   validationSchema: schema,
-  //   onSubmit: async ({ values }) => {
-  //     let url = `/admins/orders?`;
-  //     if (values.from) url = url + `&from=${values.from}`;
-  //     if (values.to) url = url + `&to=${values.to}`;
-  //     if (values.orderCount) url = url + `&orderCount=${values.orderCount}`;
-  //     await getData(url);
-  //   },
-  // });
 
   const handleChange = (e) => {
     let name = e.target.name;
@@ -76,8 +50,8 @@ const Filters = ({ getData }) => {
   };
 
   const reset = async (e) => {
-    setData({ from: "", to: "", orderCount: "" });
-    // formic.resetForm();
+    setData({ from: null, to: null, orderCount: "" });
+    setUrl(`/admins/orders?`);
     await getData();
   };
 
@@ -86,6 +60,9 @@ const Filters = ({ getData }) => {
     if (data.from) url = url + `&from=${data.from}`;
     if (data.to) url = url + `&to=${data.to}`;
     if (data.orderCount) url = url + `&orderCount=${data.orderCount}`;
+    console.log(url);
+    setUrl(url);
+    url = url + `&page=${page}`;
     await getData(url);
   };
 
@@ -107,51 +84,36 @@ const Filters = ({ getData }) => {
           label="رقم الحركة"
           name="orderCount"
           className={classes.inputs}
-          // {...formic.getFieldProps("orderCount")}
         />
       </FormControl>
 
       <FormControl className={classes.formControl}>
-        <label className={classes.label} htmlFor="from">
-          من تاريخ
-        </label>
-        <TextField
-          value={data.from}
-          onChange={handleChange}
-          id="from"
-          type="date"
-          name="from"
-        />
-        {/* <KeyboardDatePicker
+        <KeyboardDatePicker
+          onChange={(date) => {
+            setData({ ...data, from: date });
+          }}
           label="من تاريخ"
           allowKeyboardControl={true}
           renderInput={(params) => <TextField {...params} />}
           format="dd-MM-yyyy"
           variant="inline"
-          // value={data.from}
+          name="from"
+          value={data.from}
           invalidDateMessage="التاريخ المدخل غير صحيح"
-          {...formic.getFieldProps("from")}
-        /> */}
+        />
       </FormControl>
       <FormControl className={classes.formControl}>
-        {/* <KeyboardDatePicker
+        <KeyboardDatePicker
+          onChange={(date) => {
+            setData({ ...data, to: date });
+          }}
           label="الى تاريخ"
           allowKeyboardControl={true}
           renderInput={(params) => <TextField {...params} />}
           format="dd-MM-yyyy"
           variant="inline"
-          // value={data.from}
-          invalidDateMessage="التاريخ المدخل غير صحيح"
-          {...formic.getFieldProps("to")}
-        /> */}
-        <label className={classes.label} htmlFor="to">
-          الى تاريخ
-        </label>
-        <TextField
           value={data.to}
-          onChange={handleChange}
-          id="to"
-          type="date"
+          invalidDateMessage="التاريخ المدخل غير صحيح"
           name="to"
         />
       </FormControl>

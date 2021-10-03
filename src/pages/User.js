@@ -27,7 +27,7 @@ const User = () => {
 
   const getUserData = useCallback(
     async (url = `/admins/users/${id}`) => {
-      console.log(id);
+      console.log(url);
       setLoading(true);
       let response = await get(url);
       console.log(response);
@@ -51,7 +51,13 @@ const User = () => {
   return (
     <Grid className={classes.root} container justifyContent="center">
       <Header loading={loading} data={summaryData} user={user} />
-      <Filters url={url} setUrl={setUrl} user={user} getData={getUserData} />
+      <Filters
+        page={page}
+        url={url}
+        setUrl={setUrl}
+        user={user}
+        getData={getUserData}
+      />
       {userOrders && (
         <OrdersTable
           setPage={setPage}

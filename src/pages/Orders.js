@@ -14,7 +14,8 @@ const useStyle = makeStyles(() => ({
 const Orders = () => {
   const [orders, setOrders] = useState([]);
   const [summary, setSummary] = useState({});
-  // const [page, setPage] = useState(1);
+  const [page, setPage] = useState(1);
+  const [url, setUrl] = useState("/admins/orders?");
   const [pages, setPages] = useState(1);
   const history = useHistory();
   const classes = useStyle();
@@ -41,12 +42,15 @@ const Orders = () => {
   return (
     <Grid container justifyContent="center" className={classes.root}>
       <Header data={summary} />
-      <Filters getData={getOrders} />
+      <Filters url={url} setUrl={setUrl} page={page} getData={getOrders} />
       <OrdersTable
         getOrders={getOrders}
         orders={orders}
         setOrders={setOrders}
         pages={pages}
+        setPage={setPage}
+        url={url}
+        setUrl={setUrl}
       />
     </Grid>
   );

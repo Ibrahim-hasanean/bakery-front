@@ -54,6 +54,7 @@ const OrdersTable = ({
   const handlePageChange = (e, page) => {
     let filterUrl = url;
     filterUrl = filterUrl + `&page=${page}`;
+    setPage(page);
     getData(filterUrl);
   };
   return (
@@ -91,7 +92,6 @@ const OrdersTable = ({
             </TableBody>
           </Table>
         </TableContainer>
-
         <Pagination
           count={pages}
           showFirstButton

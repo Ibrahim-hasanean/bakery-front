@@ -28,7 +28,14 @@ const useStyle = makeStyles(() => ({
   },
 }));
 
-export default function OrdersTable({ orders, setOrders, pages, getOrders }) {
+export default function OrdersTable({
+  setPage,
+  orders,
+  setOrders,
+  pages,
+  getOrders,
+  url,
+}) {
   const classes = useStyle();
   const columns = [
     "رقم الطلب",
@@ -42,8 +49,8 @@ export default function OrdersTable({ orders, setOrders, pages, getOrders }) {
   ];
 
   const handlePageChange = async (e, page) => {
-    console.log(page);
-    await getOrders(`/admins/orders?page=${page}`);
+    setPage(page);
+    await getOrders(`${url}&page=${page}`);
   };
 
   return (
