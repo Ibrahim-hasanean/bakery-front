@@ -47,6 +47,7 @@ const UserSearch = ({ setUserData, handleClose, formic }) => {
   const classes = useStyle();
   const [users, setUsers] = useState([]);
   const [pages, setPages] = useState(1);
+  const [page, setPage] = useState(1);
   const [url, setUrl] = useState("/admins/users?");
   const [data, setData] = useState({
     userCount: "",
@@ -56,12 +57,13 @@ const UserSearch = ({ setUserData, handleClose, formic }) => {
   const history = useHistory();
 
   const getUsers = async () => {
-    let getUrl = url;
+    let getUrl = `/admins/users?page=${page}`;
     if (data.name) getUrl = getUrl + `&name=${data.name}`;
     if (data.userCount) getUrl = getUrl + `&userCount=${data.userCount}`;
     if (data.phoneNumber) getUrl = getUrl + `&phoneNumber=${data.phoneNumber}`;
     setUrl(getUrl);
     let response = await get(getUrl);
+    console.log(response);
     if (response.responseStatus === API_COMMON_STATUS.SUCCESS) {
       setUsers(response.data.users);
       setPages(response.data.pages);
@@ -86,6 +88,7 @@ const UserSearch = ({ setUserData, handleClose, formic }) => {
   const handlePageChange = async (e, page) => {
     console.log(page);
     await getUsers(`${url}?page=${page}`);
+    setPage(page);
   };
 
   const selectUser = (user) => {

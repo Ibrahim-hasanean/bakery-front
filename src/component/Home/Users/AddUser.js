@@ -8,7 +8,7 @@ import {
 } from "@material-ui/core";
 import * as yup from "yup";
 import { useFormik } from "formik";
-import { post } from "../../../api/genericApi";
+import { post, get } from "../../../api/genericApi";
 import { API_COMMON_STATUS } from "../../../helpers/api-helpers";
 import { useHistory } from "react-router-dom";
 import { Alert } from "@material-ui/lab";
@@ -49,10 +49,13 @@ const AddUser = ({ users, setUsers, handleClose }) => {
   };
 
   const validationSchema = yup.object().shape({
-    name: yup.string().required(),
-    phoneNumber: yup.string().required(),
+    name: yup.string().required("هذا الحقل مطلوب"),
+    phoneNumber: yup
+      .string()
+      .required("هذا الحقل مطلوب")
+      .length(10, "يجب ان يكون طول الحقل 10 ارقام"),
     address: yup.string(),
-    password: yup.string().required(),
+    password: yup.string().required("هذا الحقل مطلوب"),
     note: yup.string(),
   });
 
@@ -91,6 +94,24 @@ const AddUser = ({ users, setUsers, handleClose }) => {
       }
     },
   });
+
+  const checkUserMobile = async (e) => {
+    let value = e.target.value;
+    formic.handleBlur(e);
+    if (value) {
+      let response = await get(`/admins/users?phoneNumber=${value}`);
+      console.log(response);
+      if (response.responseStatus === API_COMMON_STATUS.SUCCESS) {
+        let users = response.data.users;
+        if (users.length > 0) {
+          console.log(users);
+          formic.setFieldError("phoneNumber", "رقم الجوال مستخدم من قبل");
+        } else {
+          formic.setFieldValue("password", value);
+        }
+      }
+    }
+  };
   return (
     <form onSubmit={formic.handleSubmit} className={classes.form}>
       <Grid container justifyContent="center">
@@ -150,10 +171,11 @@ const AddUser = ({ users, setUsers, handleClose }) => {
             variant="outlined"
             label="رقم جوال المستخدم"
             {...formic.getFieldProps("phoneNumber")}
+            onBlur={checkUserMobile}
           />
           {formic.errors.phoneNumber && formic.touched.phoneNumber ? (
             <Typography variant="subtitle2" color="secondary">
-              هذا الحقل مطلوب
+              {formic.errors.phoneNumber}
             </Typography>
           ) : null}
           <TextField

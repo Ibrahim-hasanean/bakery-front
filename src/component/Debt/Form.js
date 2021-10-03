@@ -18,7 +18,7 @@ import UserSearch from "../helpers/UserSearch";
 import * as moment from "moment";
 import { KeyboardDatePicker } from "@material-ui/pickers";
 
-const useStyle = makeStyles(() => ({
+const useStyle = makeStyles((theme) => ({
   form: {
     width: "100%",
   },
@@ -28,6 +28,9 @@ const useStyle = makeStyles(() => ({
     borderRadius: "5px",
     border: "none",
     width: "40%",
+    [theme.breakpoints.down("sm")]: {
+      width: "80%",
+    },
   },
   buttons: {
     width: "20%",
@@ -235,9 +238,10 @@ const Form = () => {
             // type="date"
             allowKeyboardControl={true}
             renderInput={(params) => <TextField {...params} />}
-            format="d-M-yyyy"
+            format="dd-MM-yyyy"
             variant="inline"
             onChange={handleChangeDate}
+            invalidDateMessage="التاريخ المدخل غير صحيح"
           />
           {formic.errors.date && formic.touched.date ? (
             <Typography variant="subtitle2" color="secondary">
