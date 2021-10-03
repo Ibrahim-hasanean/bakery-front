@@ -235,6 +235,8 @@ const Form = () => {
             format="dd-MM-yyyy"
             variant="inline"
             onChange={handleChangeDate}
+            inputVariant="outlined"
+            className={classes.inputs}
             invalidDateMessage="التاريخ المدخل غير صحيح"
           />
           {formic.errors.date && formic.touched.date ? (

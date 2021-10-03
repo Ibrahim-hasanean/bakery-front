@@ -52,6 +52,7 @@ const User = () => {
     <Grid className={classes.root} container justifyContent="center">
       <Header loading={loading} data={summaryData} user={user} />
       <Filters
+        setPage={setPage}
         page={page}
         url={url}
         setUrl={setUrl}

@@ -232,6 +232,8 @@ const Form = () => {
             </Typography>
           ) : null}
           <KeyboardDatePicker
+            inputVariant="outlined"
+            className={classes.inputs}
             {...formic.getFieldProps("date")}
             label="التاريخ"
             // openTo="year"
