@@ -307,7 +307,7 @@ const Form = () => {
       <PopUp
         open={openConfirm}
         handleClose={handleCloseConfirm}
-        title={`  كمية الخبز الملطوبة اكبر من كمية الخدقيق المتبقية  : ${user?.flourAmount} كيلو`}
+        title={`  كمية الخبز الملطوبة اكبر من كمية الدقيق المتبقية  : ${user?.flourAmount} كيلو`}
       >
         <BreedConfirmForm formic={formic} handleClose={handleCloseConfirm} />
       </PopUp>

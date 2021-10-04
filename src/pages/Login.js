@@ -6,7 +6,8 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
-import logo from "../asserts/minimal-news-app.png";
+import logo from "../asserts/logo.jpeg";
+import smartSoft from "../asserts/smartSoft.png";
 import * as yup from "yup";
 import { useFormik } from "formik";
 import { login } from "../api/auth";
@@ -16,8 +17,9 @@ import { useHistory } from "react-router-dom";
 import { Alert } from "@material-ui/lab";
 const useStyle = makeStyles(() => ({
   loginContainer: {
-    flex: 1,
+    // flex: 1,
     background: "orange",
+    height: "100vh",
   },
   form: {
     width: "100%",
@@ -26,9 +28,27 @@ const useStyle = makeStyles(() => ({
     paddingTop: "10px",
   },
   logo: {
+    width: "180px",
+    height: "180px",
+    borderRadius: "50%",
+    background: "white",
+  },
+  logoDiv: {
     width: "200px",
     height: "200px",
-    borderRadius: "50%",
+    // borderRadius: "50%",
+    // background: "white",
+    // backgroundImage: `url(${logo})`,
+    // backgroundPosition: "center",
+    // backgroundRepeat: "no-repeat",
+    // backgroundSize: "contain",
+    // objectFit: "contain",
+  },
+  smartSoft: {
+    width: "100px",
+    height: "100px",
+    // borderRadius: "50%",
+    margin: "10px",
   },
   inputs: {
     background: "white",
@@ -36,6 +56,13 @@ const useStyle = makeStyles(() => ({
     borderRadius: "5px",
     border: "none",
     width: "30%",
+  },
+  link: {
+    // textDecoration: "none",
+    // color: "white",
+  },
+  footer: {
+    padding: "0px 20px",
   },
 }));
 
@@ -86,7 +113,10 @@ const Login = () => {
         direction="column"
         className={classes.header}
       >
-        <img src={logo} alt="logo" className={classes.logo} />
+        <div className={classes.logoDiv}>
+          {/* style={{ backgroundImage: logo }} */}
+          <img src={logo} alt="logo" className={classes.logo} />
+        </div>
         <Typography variant="h4">مخبز المدينة</Typography>
       </Grid>
       <form onSubmit={formic.handleSubmit} className={classes.form}>
@@ -119,8 +149,23 @@ const Login = () => {
           </Button>
         </Grid>
       </form>
-      <Grid container justifyContent="flex-end" alignItems="center">
-        <Typography variant="body1">www.smartsoft.ps</Typography>
+      <Grid
+        className={classes.footer}
+        container
+        justifyContent="flex-end"
+        alignItems="center"
+      >
+        <Typography variant="body1">
+          <a
+            className={classes.link}
+            href="http://www.smartsoft.ps"
+            target="_blank"
+            rel="noreferrer"
+          >
+            www.smartsoft.ps
+          </a>
+        </Typography>
+        <img src={smartSoft} alt="logo" className={classes.smartSoft} />
       </Grid>
     </Grid>
   );

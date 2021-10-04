@@ -33,6 +33,9 @@ const useStyle = makeStyles(() => ({
   error: {
     border: "1px solid red",
   },
+  checkBoxContainer: {
+    padding: "20px 0px",
+  },
 }));
 const AddAdmin = ({ admins, setAdmins, handleClose }) => {
   const classes = useStyle();
@@ -171,7 +174,12 @@ const AddAdmin = ({ admins, setAdmins, handleClose }) => {
               هذا الحقل مطلوب
             </Typography>
           ) : null}
-          <Grid container justifyContent="center" alignItems="center">
+          <Grid
+            className={classes.checkBoxContainer}
+            container
+            justifyContent="center"
+            alignItems="center"
+          >
             <FormControlLabel
               control={
                 <Checkbox

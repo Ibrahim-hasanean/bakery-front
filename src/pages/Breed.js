@@ -5,7 +5,7 @@ import Form from "../component/Breed/Form";
 import { Grid, makeStyles, Typography } from "@material-ui/core";
 
 const useStyle = makeStyles(() => ({
-  title: {
+  root: {
     padding: "20px 0px",
   },
 }));
@@ -22,8 +22,8 @@ const Breed = () => {
     }
   }, [admin?.canManageBreed, admin?.isBigManager, history, admin]);
   return (
-    <Grid container justifyContent="center">
-      <Typography className={classes.title} variant="h4" color="textPrimary">
+    <Grid className={classes.root} container justifyContent="center">
+      <Typography variant="h4" color="textPrimary">
         بيع خبز
       </Typography>
       <Form />
