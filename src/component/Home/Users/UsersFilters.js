@@ -3,6 +3,11 @@ import { Grid, TextField, makeStyles, Button } from "@material-ui/core";
 import PopUp from "../../helpers/PopUp";
 import AddUser from "./AddUser";
 import { useAuthContext } from "../../../context/authContext";
+import Box from "@material-ui/core/Box";
+import InputLabel from "@material-ui/core/InputLabel";
+import MenuItem from "@material-ui/core/MenuItem";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
 const useStyle = makeStyles(() => ({
   root: {
     padding: "10px",
@@ -23,6 +28,7 @@ const UsersFilters = ({ users, setUsers, getUsers }) => {
     name: "",
     phoneNumber: "",
     userCount: "",
+    account: "",
   });
   const [openAddUser, setOpenAddUser] = useState(false);
   const { admin } = useAuthContext();
@@ -47,13 +53,14 @@ const UsersFilters = ({ users, setUsers, getUsers }) => {
     if (data.name) url = url + `&name=${data.name}`;
     if (data.userCount) url = url + `&userCount=${data.userCount}`;
     if (data.phoneNumber) url = url + `&phoneNumber=${data.phoneNumber}`;
+    if (data.account) url = url + `&account=${data.account}`;
     await getUsers(url);
   };
 
   const reset = async () => {
     let url = `/admins/users?`;
     await getUsers(url);
-    setData({ name: "", phoneNumber: "", userCount: "" });
+    setData({ name: "", phoneNumber: "", userCount: "", account: "" });
   };
 
   return (
@@ -92,6 +99,24 @@ const UsersFilters = ({ users, setUsers, getUsers }) => {
           variant="standard"
           name="phoneNumber"
         />
+        <Box sx={{ minWidth: 150 }} className={classes.margin}>
+          <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label">
+              تصنيف حسب الرصيد
+            </InputLabel>
+            <Select
+              // labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={data.account}
+              label="تصنيف حسب الرصيد"
+              onChange={handleChange}
+              name="account"
+            >
+              <MenuItem value={2}>له رصيد</MenuItem>
+              <MenuItem value={1}>عليه رصيد</MenuItem>
+            </Select>
+          </FormControl>
+        </Box>
         <Button
           className={classes.margin}
           onClick={search}

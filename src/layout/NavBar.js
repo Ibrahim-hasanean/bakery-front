@@ -97,7 +97,7 @@ const NavBar = () => {
                 className={classes.link}
                 to="/breed"
               >
-                <Typography variant="body1">بيع خبز</Typography>
+                <Typography variant="body1">تبديل خبز</Typography>
               </NavLink>
             ) : null}
 
@@ -109,7 +109,7 @@ const NavBar = () => {
                 className={classes.link}
                 to="/debt"
               >
-                <Typography variant="body1">بيع خبز على الحساب</Typography>
+                <Typography variant="body1">خبز دين</Typography>
               </NavLink>
             ) : null}
             {admin?.isBigManager || admin?.canManagePaid ? (

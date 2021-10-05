@@ -24,7 +24,7 @@ const Breed = () => {
   return (
     <Grid className={classes.root} container justifyContent="center">
       <Typography variant="h4" color="textPrimary">
-        بيع خبز
+        تبديل خبز
       </Typography>
       <Form />
     </Grid>

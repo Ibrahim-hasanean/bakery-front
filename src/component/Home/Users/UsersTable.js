@@ -31,6 +31,7 @@ const useStyle = makeStyles(() => ({
 export default function UsersTable({ users, setUsers, pages, getUsers }) {
   const classes = useStyle();
   const columns = [
+    "",
     "رقم المستخدم",
     "رقم جوال المستخدم",
     "اسم المستخدم",

@@ -24,7 +24,7 @@ const Debt = () => {
   return (
     <Grid className={classes.root} container justifyContent="center">
       <Typography variant="h4" color="textPrimary">
-        بيع خبز على الحساب
+        خبز دين
       </Typography>
       <Form />
     </Grid>

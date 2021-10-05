@@ -7,6 +7,8 @@ import {
   Button,
 } from "@material-ui/core";
 import { KeyboardDatePicker } from "@material-ui/pickers";
+import PopUp from "../helpers/PopUp";
+import DeleteUser from "./DeleteUser";
 
 const useStyle = makeStyles(() => ({
   root: {
@@ -33,7 +35,7 @@ const useStyle = makeStyles(() => ({
 const Filters = ({ page, getData, user, setUrl, url, setPage }) => {
   const classes = useStyle();
   const [data, setData] = useState({ from: null, to: null, orderCount: "" });
-
+  const [open, setOpen] = useState();
   const handleChange = (e) => {
     let name = e.target.name;
     let value = e.target.value;
@@ -57,6 +59,10 @@ const Filters = ({ page, getData, user, setUrl, url, setPage }) => {
     setUrl(filterUrl);
     filterUrl = filterUrl + `&page${page}`;
     await getData(filterUrl);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
   };
 
   return (
@@ -139,7 +145,18 @@ const Filters = ({ page, getData, user, setUrl, url, setPage }) => {
         alignItems="flex-end"
         item
         xs={2}
-      ></Grid>
+      >
+        <Button
+          onClick={() => setOpen(true)}
+          variant="contained"
+          color="secondary"
+        >
+          حذف المستخدم بشكل نهائي
+        </Button>
+      </Grid>
+      <PopUp open={open} handleClose={handleClose}>
+        <DeleteUser handleClose={handleClose} user={user} />
+      </PopUp>
     </Grid>
   );
 };

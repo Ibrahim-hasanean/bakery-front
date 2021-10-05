@@ -9,6 +9,7 @@ import { API_COMMON_STATUS } from "../../../helpers/api-helpers";
 import PopUp from "../../helpers/PopUp";
 import EditeUser from "./EditeUser";
 import { useAuthContext } from "../../../context/authContext";
+import RadioButtonCheckedIcon from "@material-ui/icons/RadioButtonChecked";
 
 const useStyle = makeStyles(() => ({
   editeIcon: {
@@ -58,6 +59,13 @@ const UsersTableRow = ({ users, user, setUsers, index }) => {
 
   return (
     <TableRow hover role="checkbox" tabIndex={-1} key={user._id}>
+      <TableCell
+        onDoubleClick={goToUserPage}
+        className={classes.tableCell}
+        align="center"
+      >
+        {user.account > 0 ? <RadioButtonCheckedIcon color="secondary" /> : null}
+      </TableCell>
       <TableCell
         onDoubleClick={goToUserPage}
         className={classes.tableCell}
