@@ -13,7 +13,7 @@ export const post = async (url, postData) => {
         Authorization: `bearer ${token}`,
       },
     });
-    switch (response.status) {
+    switch (response?.status) {
       case API_COMMON_STATUS.RESOURCE_CREATED:
         data = {
           responseStatus: API_COMMON_STATUS.RESOURCE_CREATED,
@@ -26,7 +26,7 @@ export const post = async (url, postData) => {
     return data;
   } catch (e) {
     let response = e.response;
-    switch (response.status) {
+    switch (response?.status) {
       case API_COMMON_STATUS.BAD_REQUEST:
         data = {
           responseStatus: API_COMMON_STATUS.BAD_REQUEST,
@@ -66,7 +66,7 @@ export const get = async (url) => {
         Authorization: `bearer ${token}`,
       },
     });
-    switch (response.status) {
+    switch (response?.status) {
       case API_COMMON_STATUS.SUCCESS:
         data = {
           responseStatus: API_COMMON_STATUS.SUCCESS,
@@ -79,7 +79,7 @@ export const get = async (url) => {
     return data;
   } catch (e) {
     let response = e.response;
-    switch (response.status) {
+    switch (response?.status) {
       case API_COMMON_STATUS.BAD_REQUEST:
         data = {
           responseStatus: API_COMMON_STATUS.BAD_REQUEST,
@@ -113,7 +113,7 @@ export const patch = async (url, patchDate) => {
         Authorization: `bearer ${token}`,
       },
     });
-    switch (response.status) {
+    switch (response?.status) {
       case API_COMMON_STATUS.SUCCESS:
         data = {
           responseStatus: API_COMMON_STATUS.SUCCESS,
@@ -126,7 +126,7 @@ export const patch = async (url, patchDate) => {
     return data;
   } catch (e) {
     let response = e.response;
-    switch (response.status) {
+    switch (response?.status) {
       case API_COMMON_STATUS.BAD_REQUEST:
         data = {
           responseStatus: API_COMMON_STATUS.BAD_REQUEST,
@@ -166,7 +166,7 @@ export const deleteRequest = async (url) => {
         Authorization: `bearer ${token}`,
       },
     });
-    switch (response.status) {
+    switch (response?.status) {
       case API_COMMON_STATUS.SUCCESS:
         data = {
           responseStatus: API_COMMON_STATUS.SUCCESS,
@@ -179,7 +179,7 @@ export const deleteRequest = async (url) => {
     return data;
   } catch (e) {
     let response = e.response;
-    switch (response.status) {
+    switch (response?.status) {
       case API_COMMON_STATUS.BAD_REQUEST:
         data = {
           responseStatus: API_COMMON_STATUS.BAD_REQUEST,

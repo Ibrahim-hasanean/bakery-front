@@ -9,6 +9,10 @@ const useStyle = makeStyles(() => ({
   text: {
     color: "#cc762d",
     fontWeight: "800",
+    margin: "10px",
+  },
+  number: {
+    color: "#cc762d",
   },
 }));
 
@@ -29,12 +33,14 @@ const Header = ({ user, data, loading }) => {
         className={classes.textContainer}
         container
         justifyContent="flex-start"
+        alignItems="center"
         item
         xs={11}
       >
         <Typography className={classes.text} variant="h5">
           {user?.name}
         </Typography>
+        <h4 className={classes.number}>{user?.userCount}</h4>
       </Grid>
       <Grid container justifyContent="center">
         <Boxes

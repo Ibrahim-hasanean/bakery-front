@@ -6,7 +6,7 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
-import logo from "../asserts/logo.jpeg";
+import logo from "../asserts/icon.feddc31d.jpg";
 import smartSoft from "../asserts/smartSoft.png";
 import * as yup from "yup";
 import { useFormik } from "formik";

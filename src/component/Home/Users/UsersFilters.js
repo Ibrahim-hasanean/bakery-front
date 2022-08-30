@@ -23,13 +23,14 @@ const useStyle = makeStyles(() => ({
   },
 }));
 
-const UsersFilters = ({ users, setUsers, getUsers }) => {
-  const [data, setData] = useState({
-    name: "",
-    phoneNumber: "",
-    userCount: "",
-    account: "",
-  });
+const UsersFilters = ({
+  data,
+  setData,
+  users,
+  setUsers,
+  getUsers,
+  setPage,
+}) => {
   const [openAddUser, setOpenAddUser] = useState(false);
   const { admin } = useAuthContext();
   const classes = useStyle();
@@ -48,19 +49,16 @@ const UsersFilters = ({ users, setUsers, getUsers }) => {
     setData({ ...data, [name]: value });
   };
 
-  const search = async () => {
-    let url = `/admins/users?`;
-    if (data.name) url = url + `&name=${data.name}`;
-    if (data.userCount) url = url + `&userCount=${data.userCount}`;
-    if (data.phoneNumber) url = url + `&phoneNumber=${data.phoneNumber}`;
-    if (data.account) url = url + `&account=${data.account}`;
-    await getUsers(url);
-  };
-
   const reset = async () => {
     let url = `/admins/users?`;
-    await getUsers(url);
     setData({ name: "", phoneNumber: "", userCount: "", account: "" });
+    setPage(1);
+    await getUsers(1, true, false);
+  };
+
+  const search = () => {
+    setPage(1);
+    getUsers(1, false, false);
   };
 
   return (
@@ -119,7 +117,7 @@ const UsersFilters = ({ users, setUsers, getUsers }) => {
         </Box>
         <Button
           className={classes.margin}
-          onClick={search}
+          onClick={() => search()}
           color="primary"
           variant="contained"
         >

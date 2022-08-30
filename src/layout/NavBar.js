@@ -67,16 +67,18 @@ const NavBar = () => {
             item
             xs={10}
           >
-            <NavLink
-              activeStyle={{
-                background: "#dca237",
-              }}
-              className={classes.link}
-              exact
-              to="/"
-            >
-              <Typography variant="body1">الصفحة الرئيسية</Typography>
-            </NavLink>
+            {admin && (
+              <NavLink
+                activeStyle={{
+                  background: "#dca237",
+                }}
+                className={classes.link}
+                exact
+                to="/"
+              >
+                <Typography variant="body1">الصفحة الرئيسية</Typography>
+              </NavLink>
+            )}
             {admin?.isBigManager || admin?.canManageFlour ? (
               <NavLink
                 activeStyle={{
@@ -123,15 +125,17 @@ const NavBar = () => {
                 <Typography variant="body1">سند قبض نقدي</Typography>
               </NavLink>
             ) : null}
-            <NavLink
-              activeStyle={{
-                background: "#dca237",
-              }}
-              className={classes.link}
-              to="/orders"
-            >
-              <Typography variant="body1">الحركات</Typography>
-            </NavLink>
+            {admin && (
+              <NavLink
+                activeStyle={{
+                  background: "#dca237",
+                }}
+                className={classes.link}
+                to="/orders"
+              >
+                <Typography variant="body1">الحركات</Typography>
+              </NavLink>
+            )}
             {admin?.isBigManager ? (
               <NavLink
                 activeStyle={{
@@ -144,36 +148,44 @@ const NavBar = () => {
               </NavLink>
             ) : null}
           </Grid>
-          <IconButton onClick={handleOpenMenue}>
-            <AccountCircleIcon />
-          </IconButton>
-          <Menu
-            id="basic-menu"
-            anchorEl={anchorEl}
-            open={open}
-            onClose={handleClose}
-            MenuListProps={{
-              "aria-labelledby": "basic-button",
-            }}
-          >
-            <MenuItem>
-              <Typography color="inherit"> الاسم : {admin?.name}</Typography>
-            </MenuItem>
-            <MenuItem>
-              <Typography color="inherit">
-                رقم الجوال : {admin?.phoneNumber}
-              </Typography>
-            </MenuItem>
-            <MenuItem>
-              <Button
-                className={classes.button}
-                onClick={logout}
-                color="secondary"
+          {admin && (
+            <>
+              {" "}
+              <IconButton onClick={handleOpenMenue}>
+                <AccountCircleIcon />
+              </IconButton>
+              <Menu
+                id="basic-menu"
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleClose}
+                MenuListProps={{
+                  "aria-labelledby": "basic-button",
+                }}
               >
-                تسجيل الخروج
-              </Button>
-            </MenuItem>
-          </Menu>
+                <MenuItem>
+                  <Typography color="inherit">
+                    {" "}
+                    الاسم : {admin?.name}
+                  </Typography>
+                </MenuItem>
+                <MenuItem>
+                  <Typography color="inherit">
+                    رقم الجوال : {admin?.phoneNumber}
+                  </Typography>
+                </MenuItem>
+                <MenuItem>
+                  <Button
+                    className={classes.button}
+                    onClick={logout}
+                    color="secondary"
+                  >
+                    تسجيل الخروج
+                  </Button>
+                </MenuItem>
+              </Menu>
+            </>
+          )}
         </Grid>
       </Toolbar>
     </AppBar>

@@ -62,7 +62,7 @@ const EditeUser = ({ user, users, setUsers, handleClose }) => {
         name: values.name,
         address: values.address,
         note: values.note,
-        password: user.password,
+        password: values.password,
       };
       let response = await patch(`/admins/users/${user._id}`, data);
       console.log(response);

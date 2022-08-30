@@ -1,7 +1,7 @@
 import React from "react";
 import Boxes from "../helpers/Boxes";
 
-const Header = ({ data }) => {
+const Header = ({ data, loading }) => {
   const SummaryData = [
     { title: "عدد المستخدمين", value: data?.usersCount },
     { title: "الدقيق الكلي", value: data?.totalFlour },
@@ -12,7 +12,7 @@ const Header = ({ data }) => {
     { title: "المبلغ المدفوع", value: data?.totalPayed },
     { title: "المبلغ المتبقي", value: data?.restAccount },
   ];
-  return <Boxes SummaryData={SummaryData} />;
+  return <Boxes loading={loading} SummaryData={SummaryData} />;
 };
 
 export default Header;
