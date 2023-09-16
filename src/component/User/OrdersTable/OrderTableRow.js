@@ -69,9 +69,11 @@ const OrderTableRow = ({
         {order?.currentAccount}
       </TableCell>
       <TableCell className={classes.tableCell} align="center">
-        {moment(new Date(order?.date).toLocaleDateString()).format(
+        {moment(new Date(order?.date).toISOString()).format("DD-MM-YYYY")}
+
+        {/* {moment(new Date(order?.date).toLocaleDateString()).format(
           "DD-MM-YYYY"
-        )}
+        )} */}
       </TableCell>
       <TableCell className={classes.tableCell} align="center">
         <IconButton onClick={handleOpenEditeOrder}>

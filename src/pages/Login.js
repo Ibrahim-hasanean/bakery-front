@@ -117,7 +117,7 @@ const Login = () => {
           {/* style={{ backgroundImage: logo }} */}
           <img src={logo} alt="logo" className={classes.logo} />
         </div>
-        <Typography variant="h4">مخبز المدينة</Typography>
+        <Typography variant="h4">مخبز البلدي</Typography>
       </Grid>
       <form onSubmit={formic.handleSubmit} className={classes.form}>
         <Grid
